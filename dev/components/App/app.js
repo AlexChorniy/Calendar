@@ -49,7 +49,7 @@ class App extends PureComponent {
                 this.setState({
                     isLoading: false,
                     data: responce.data,
-                    // error: null,
+                    error: null,
                 });
                 const responceData = responce.data.filter(
                     item => (item.txt === carrencyName ? item : null),

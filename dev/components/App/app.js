@@ -33,10 +33,12 @@ class App extends PureComponent {
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.updateState = this.updateState.bind(this);
     }
 
     componentDidMount() {
         this.getData();
+        this.updateState();
     }
 
     getData(carrencyName) {
@@ -61,6 +63,21 @@ class App extends PureComponent {
                     // error: ,
                 });
             });
+    }
+
+    updateState() {
+        const { monthList } = this.state;
+        const chosedMonth = window.document.getElementsByClassName(style.calendar_unit)[2].value;
+        const monthInNumber = monthList.filter(item => (
+            item.name === chosedMonth ? item : null
+        ))[0].id;
+        const chosedYear = window.document.getElementsByClassName(style.calendar_unit)[2].value;
+        daysInMonth = moment(`${chosedYear}-${monthInNumber}`, 'YYYY-MM').daysInMonth();
+        this.setState({
+            daysList: Array(daysInMonth).fill().map((k, index) => index + 1).map(
+                (elem, index) => ({ id: index + 1, name: index < 9 ? `0${elem}` : elem }),
+            ),
+        });
     }
 
     handleChange(e) {

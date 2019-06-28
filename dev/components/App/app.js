@@ -57,10 +57,9 @@ class App extends PureComponent {
                 newsUpdateNew(responceData);
             })
             .catch((reject) => {
-                console.error('reject', reject);
                 this.setState({
                     isLoading: false,
-                    // error: ,
+                    error: `Server error: ${reject.response.statusText}`,
                 });
             });
     }
@@ -121,6 +120,7 @@ class App extends PureComponent {
             daysList,
             monthList,
             yearsList,
+            error,
         } = this.state;
         const {
             storeInformation,
@@ -170,6 +170,7 @@ class App extends PureComponent {
                         <div className={style.form_submit}>
                             <input onClick={this.handleSubmit} className={style.calendar_but} type="button" value="Submit" />
                         </div>
+                        {<div className={style.form_errorView}><h2>{error}</h2></div>}
                         {
                             data.length
                                 ? storeInformation.map(exchange => (

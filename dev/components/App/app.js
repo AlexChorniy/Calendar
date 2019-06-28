@@ -28,7 +28,9 @@ class App extends PureComponent {
             yearsList: Array(15).fill().map((e, index) => moment().year() - index).map(
                 (elem, index) => ({ id: index + 1, name: elem }),
             ),
-            // error: null,
+            defaultDay: moment().format('DD'),
+            defaultMonth: moment().format('MMMM'),
+            error: null,
         };
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,7 +71,7 @@ class App extends PureComponent {
         const chosedMonth = window.document.getElementsByClassName(style.calendar_unit)[2].value;
         const monthInNumber = monthList.filter(item => (
             item.name === chosedMonth ? item : null
-        ))[0].id;
+        ))[0];
         const chosedYear = window.document.getElementsByClassName(style.calendar_unit)[3].value;
         daysInMonth = moment(`${chosedYear}-${monthInNumber}`, 'YYYY-MM').daysInMonth();
         this.setState({
@@ -121,6 +123,8 @@ class App extends PureComponent {
             monthList,
             yearsList,
             error,
+            defaultDay,
+            defaultMonth,
         } = this.state;
         const {
             storeInformation,
@@ -150,11 +154,13 @@ class App extends PureComponent {
                                 }
                             </select>
                             <select name="day" className={style.calendar_unit}>
+                                <option className={style.calendar_opt}>{defaultDay}</option>
                                 {
                                     daysList.map(item => <DaysItem key={item.id} {...item} />)
                                 }
                             </select>
                             <select name="month" className={style.calendar_unit}>
+                                <option className={style.calendar_opt}>{defaultMonth}</option>
                                 {
                                     monthList.map(item => (
                                         <MonthsItem key={item.id} {...item} />

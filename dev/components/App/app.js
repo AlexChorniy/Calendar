@@ -11,8 +11,9 @@ import CarrencyItem from '../CarrencyItem';
 import DaysItem from '../Calendar/DaysItem';
 import MonthsItem from '../Calendar/MonthItem';
 import YearsItem from '../Calendar/YearsItem';
+import store from '../../store';
 
-const daysInMonth = moment(`${moment().format('YYYY-MM')}`, 'YYYY-MM').daysInMonth();
+let daysInMonth = moment(`${moment().format('YYYY-MM')}`, 'YYYY-MM').daysInMonth();
 
 class App extends PureComponent {
     constructor() {
@@ -32,6 +33,7 @@ class App extends PureComponent {
         };
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +62,22 @@ class App extends PureComponent {
                     // error: ,
                 });
             });
+    }
+
+    handleChange(e) {
+        e.preventDefault();
+        const { monthList } = this.state;
+        const chosedMonth = e.nativeEvent.path[0].form[2].value;
+        const monthInNumber = monthList.filter(item => (
+            item.name === chosedMonth ? item : null
+        ))[0].id;
+        const chosedYear = e.nativeEvent.path[0].form[3].value;
+        daysInMonth = moment(`${chosedYear}-${monthInNumber}`, 'YYYY-MM').daysInMonth();
+        this.setState({
+            daysList: Array(daysInMonth).fill().map((k, index) => index + 1).map(
+                (elem, index) => ({ id: index + 1, name: index < 9 ? `0${elem}` : elem }),
+            ),
+        });
     }
 
     handleSubmit(e) {
@@ -99,7 +117,7 @@ class App extends PureComponent {
                 </div>
             ) : (
                 <div className={style.wrapper}>
-                    <form className={style.form}>
+                    <form onChange={this.handleChange} className={style.form}>
                         <h2 className={style.form_title}>{`Today is ${moment().format('LL')}`}</h2>
                         <h3 className={style.form_subTitle}>
                             Please choose carrency and enter the day

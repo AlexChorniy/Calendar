@@ -71,10 +71,10 @@ class App extends PureComponent {
         const monthInNumber = monthList.filter(item => (
             item.name === chosedMonth ? item : null
         ))[0].id;
-        const chosedYear = window.document.getElementsByClassName(style.calendar_unit)[2].value;
+        const chosedYear = window.document.getElementsByClassName(style.calendar_unit)[3].value;
         daysInMonth = moment(`${chosedYear}-${monthInNumber}`, 'YYYY-MM').daysInMonth();
         this.setState({
-            daysList: Array(daysInMonth).fill().map((k, index) => index + 1).map(
+            daysList: Array(daysInMonth).fill().map((day, index) => index + 1).map(
                 (elem, index) => ({ id: index + 1, name: index < 9 ? `0${elem}` : elem }),
             ),
         });
@@ -171,11 +171,11 @@ class App extends PureComponent {
                             <input onClick={this.handleSubmit} className={style.calendar_but} type="button" value="Submit" />
                         </div>
                         {
-                            storeInformation ? (
-                                storeInformation.map(exchange => (
+                            data.length
+                                ? storeInformation.map(exchange => (
                                     <Exchange key={exchange.r030} {...exchange} />
                                 ))
-                            ) : null
+                            : <div className={style.form_errorView}><h2>{'Sorry, we can\'t find your request. Push Submit once more'}</h2></div>
                         }
                     </form>
                 </div>

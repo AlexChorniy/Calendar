@@ -28,7 +28,7 @@ class App extends PureComponent {
             yearsList: Array(15).fill().map((e, index) => moment().year() - index).map(
                 (elem, index) => ({ id: index + 1, name: elem }),
             ),
-            // error: null,
+            error: null,
         };
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

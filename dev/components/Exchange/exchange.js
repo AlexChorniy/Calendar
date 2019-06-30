@@ -11,7 +11,7 @@ const Exchange = (
 ) => (
     <div className={style.exchangeView}>
         <h2>{txt}</h2>
-        <p>{rate}</p>
+        <p>{`${rate} grn for 1 ${cc}`}</p>
         <p>{cc}</p>
         <p>{exchDate}</p>
     </div>

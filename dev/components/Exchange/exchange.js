@@ -9,11 +9,13 @@ const Exchange = (
     exchDate,
 },
 ) => (
-    <div className={style.exchangeView}>
-        <h2>{txt}</h2>
-        <p>{`${rate} grn for 1 ${cc}`}</p>
-        <p>{cc}</p>
-        <p>{exchDate}</p>
+    <div className="card">
+        <div className={`card-body ${style.exchangeView}`}>
+            <h2 className="card-title text-info">{txt}</h2>
+            <p className="card-subtitle mb-2 text-muted">{`${rate} grn for 1 ${cc}`}</p>
+            <p className="card-subtitle mb-2 text-muted">{cc}</p>
+            <p className="card-subtitle mb-2 text-muted">{exchDate}</p>
+        </div>
     </div>
 );
 

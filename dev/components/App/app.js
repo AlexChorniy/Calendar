@@ -12,6 +12,7 @@ import DaysItem from '../Calendar/DaysItem';
 import MonthsItem from '../Calendar/MonthItem';
 import YearsItem from '../Calendar/YearsItem';
 import workWithLS from '../../configs/WorkWithLS';
+import ButtonSubmit from '../ButtonSubmit';
 
 let daysInMonth = moment(`${moment().format('YYYY-MM')}`, 'YYYY-MM').daysInMonth();
 
@@ -146,13 +147,13 @@ class App extends PureComponent {
                     </div>
                 ) : (
                     <div className={style.wrapper}>
-                        <form onChange={this.handleChange} className={style.form}>
+                        <form onChange={this.handleChange} className={`form-group ${style.form}`}>
                             <h2 className={style.form_title}>{`Today is ${moment().format('LL')}`}</h2>
                             <h3 className={style.form_subTitle}>
                                 Please choose carrency and enter the day
                             </h3>
                             <div className={style.calendar}>
-                                <select className={style.calendar_unit}>
+                                <select className={`form-control ${style.calendar_unit}`} id="exampleFormControlSelect1">
                                     {
                                         data.map(item => (
                                             <CarrencyItem
@@ -162,13 +163,13 @@ class App extends PureComponent {
                                         ))
                                     }
                                 </select>
-                                <select name="day" className={style.calendar_unit}>
+                                <select name="day" className={`form-control ${style.calendar_unit}`} id="exampleFormControlSelect2">
                                     <option className={style.calendar_opt}>{defaultDay}</option>
                                     {
                                         daysList.map(item => <DaysItem key={item.id} {...item} />)
                                     }
                                 </select>
-                                <select name="month" className={style.calendar_unit}>
+                                <select name="month" className={`form-control ${style.calendar_unit}`} id="exampleFormControlSelect3">
                                     <option className={style.calendar_opt}>{defaultMonth}</option>
                                     {
                                         monthList.map(item => (
@@ -176,14 +177,14 @@ class App extends PureComponent {
                                         ))
                                     }
                                 </select>
-                                <select name="year" className={style.calendar_unit}>
+                                <select name="year" className={`form-control ${style.calendar_unit}`} id="exampleFormControlSelect4">
                                     {
                                         yearsList.map(item => <YearsItem key={item.id} {...item} />)
                                     }
                                 </select>
                             </div>
                             <div className={style.form_submit}>
-                                <input onClick={this.handleSubmit} className={style.calendar_but} type="button" value="Submit" />
+                                <ButtonSubmit handleSubmit={this.handleSubmit} />
                             </div>
                             {<div className={style.form_errorView}><h2>{error}</h2></div>}
                             {
